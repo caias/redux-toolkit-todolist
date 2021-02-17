@@ -38,6 +38,7 @@ module.exports = {
     'setTimeout': false,
     'window': false,
     'XMLHttpRequest': false,
+    'JSX': false,
   },
   'settings': {
     'react': {

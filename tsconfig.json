@@ -12,7 +12,7 @@
       "node",
       "react",
       "react-dom",
-      // "react-redux",
+      "react-redux",
     ],
     "module": "esnext",
     "target": "es5",
@@ -24,9 +24,10 @@
     ],
     "baseUrl": "./",
     "paths": {
-      "@components/*": [
-        "./src/components/*"
-      ]
+      "@src/*": [ "./src/*" ],
+      "@pages/*": [ "./src/pages/*" ],
+      "@features/*": [ "./src/features/*" ],
+      "@components/*": [ "./src/components/*" ],
     },
     "allowSyntheticDefaultImports": true,
     "keyofStringsOnly": true,
