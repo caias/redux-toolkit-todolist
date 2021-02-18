@@ -1,2 +1,9 @@
-# webpack5-study
-webpack5 study and make base template
+# todolist example
+todolist example with typescript, react(v16), redux-toolkit
+## Getting Started
+
+```bash
+npm run start
+# or
+yarn start
+```

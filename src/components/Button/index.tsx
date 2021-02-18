@@ -14,8 +14,8 @@ function Button({
 }: IProps): JSX.Element {
 
   const className = cn(
-    'btn m-t-20 float-right', 
-    { 
+    'btn m-t-20 float-right',
+    {
       'btn-secondary': color === 'gray',
       'btn-primary': color === 'blue',
       'btn-info': color === 'green',

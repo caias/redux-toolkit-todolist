@@ -6,6 +6,7 @@ interface IProps {
   isActive: boolean;
   title: string;
   updateDate: string;
+  onClick?: () => void;
 }
 
 function TodoItem({
@@ -13,7 +14,7 @@ function TodoItem({
   isActive,
   title,
   updateDate,
-
+  onClick,
 }: IProps): JSX.Element {
   const className = cn(
     'list-group-item list-group-item-action',
@@ -25,7 +26,7 @@ function TodoItem({
   );
 
   return (
-    <a className={className}>
+    <a className={className} onClick={onClick}>
       <div className="d-flex w-100 justify-content-between">
         <h5 className="mb-1">{title}</h5>
         <small>{updateDate}</small>
