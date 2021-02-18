@@ -1,21 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import * as MODEL from '@src/model';
 
-interface ITodoList {
-  title: string;
-  updateDate: string;
-  isActive: boolean;
-}
-
-interface IInitialData {
-  incomplete: Array<ITodoList>,
-  complete: Array<ITodoList>,
-}
-
-interface ISlice {
-  todo: IInitialData;
-}
-
-const initialState: IInitialData = {
+const initialState: MODEL.IInitialData = {
   incomplete: [
     {
       title: 'javascript 리서치',
@@ -50,11 +36,40 @@ const initialState: IInitialData = {
 const todoSlice = createSlice({
   name: 'todo',
   initialState,
-  reducers: {},
+  reducers: {
+    addTodoList(state, { payload }: PayloadAction<MODEL.ITodoList>) {
+      state.incomplete = [...state.incomplete, { ...payload }];
+    },
+    todoToggle(state, { payload }: PayloadAction<MODEL.IPayloadTypeAndIndex>) {
+      const { type, index } = payload;
+      const isActvie = state[type][index].isActive;
+
+      state[type][index].isActive = !isActvie;
+    },
+    AllToggle(state, { payload }: PayloadAction<MODEL.IPayloadTypeAndActive>) {
+      const { type, active } = payload;
+      state[type] = state[type].map(item => ({ ...item, isActive: !active }));
+    },
+    moveTodo(state, { payload }: PayloadAction<MODEL.ITodoType>) {
+      const { type } = payload;
+      const isIncomplete = type === 'incomplete';
+      const target = isIncomplete ? 'complete' : 'incomplete';
+      const activeList = state[type].filter(item => item.isActive);
+      const inActiveList = state[type].filter(item => !item.isActive);
+
+      state[type] = inActiveList;
+      state[target] = [...state[target], ...activeList].map(item => ({ ...item, isActive: false }));
+    },
+  },
 });
 
-export const getIncompleteList = ({ todo }: ISlice) => todo.incomplete;
-export const getCompleteList = ({ todo }: ISlice) => todo.complete;
+export const getIncompleteList = ({ todo }: MODEL.ISlice) => todo.incomplete;
+export const getCompleteList = ({ todo }: MODEL.ISlice) => todo.complete;
 
-
+export const { 
+  addTodoList,
+  todoToggle,
+  AllToggle,
+  moveTodo,
+} = todoSlice.actions;
 export default todoSlice;
